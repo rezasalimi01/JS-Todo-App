@@ -5,7 +5,6 @@ const alertMessage = document.getElementById("alert-message");
 const todosBody = document.querySelector("tbody");
 const deleteAllButton = document.getElementById("delete-all-button");
 
-
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 const saveToLocalStorage = () => {
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -46,8 +45,7 @@ const displayTodos = () => {
             <td>
                 <button>Edit</button>
                 <button>Do</button>
-                <button>Delete</button>
-            
+                <button onclick="deleteHandler('${todo.id}')">Delete</button>
             </td>
         
         </tr>
@@ -83,10 +81,18 @@ const deleteAllHandler = () => {
     todos = [];
     saveToLocalStorage();
     displayTodos();
-    showAlert("All todos cleared successfully ✅", "success")
+    showAlert("All todos cleared successfully ✅", "success");
   } else {
-    showAlert("No todos to clear ❗", "error")
+    showAlert("No todos to clear ❗", "error");
   }
+};
+
+const deleteHandler = (id) => {
+  const newTodos = todos.filter((todo) => todo.id !== id);
+  todos = newTodos
+  saveToLocalStorage()
+  displayTodos()
+  showAlert("Todo deleted successfully ✅", "success")
 };
 
 window.addEventListener("load", displayTodos);
