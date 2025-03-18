@@ -82,26 +82,35 @@ const displayTodos = (data) => {
 };
 
 const addHandler = () => {
-  const task = taskInput.value;
+  const task = taskInput.value.trim();
   const date = dateInput.value;
+  const today = new Date().toISOString().split("T")[0];
+
+  if (!task) {
+    showAlert("Please enter a todo ❗", "error");
+    return;
+  }
+
+  if (date && date < today) {
+    showAlert("Date cannot be in the past ❗", "error");
+    return;
+  }
+
   const todo = {
     id: generateId(),
     completed: false,
     task: task,
-    date: date,
+    date: date || "",
   };
 
-  if (task) {
-    todos.push(todo);
-    saveToLocalStorage();
-    displayTodos();
-    taskInput.value = "";
-    dateInput.value = "";
-    showAlert("Todo added successfully ✅", "success");
-  } else {
-    showAlert("Please enter a todo ❗", "error");
-  }
+  todos.push(todo);
+  saveToLocalStorage();
+  displayTodos();
+  taskInput.value = "";
+  dateInput.value = "";
+  showAlert("Todo added successfully ✅", "success");
 };
+
 
 const deleteAllHandler = () => {
   if (todos.length) {
@@ -127,7 +136,7 @@ const toggleHandler = (id) => {
   todo.completed = !todo.completed;
   saveToLocalStorage();
   displayTodos();
-  showAlert("Todo statue changed successfully ✅", "success");
+  showAlert("Todo status changed successfully ✅", "success");
 };
 
 const editHandler = (id) => {
@@ -142,12 +151,29 @@ const editHandler = (id) => {
 const applyEditHandler = (event) => {
   const id = event.target.dataset.id;
   const todo = todos.find((todo) => todo.id === id);
-  todo.task = taskInput.value;
-  todo.date = dateInput.value;
+  
+  const newTask = taskInput.value.trim();
+  const newDate = dateInput.value;
+  const today = new Date().toISOString().split("T")[0];
+
+  if (!newTask) {
+    showAlert("Please enter a todo ❗", "error");
+    return;
+  }
+
+  if (newDate && newDate < today) {
+    showAlert("Date cannot be in the past ❗", "error");
+    return;
+  }
+
+  todo.task = newTask;
+  todo.date = newDate || ""; 
+
   taskInput.value = "";
   dateInput.value = "";
   addButton.style.display = "inline-block";
   editButton.style.display = "none";
+
   saveToLocalStorage();
   displayTodos();
   showAlert("Todo edited successfully ✅", "success");
@@ -172,6 +198,17 @@ const filterHandler = (event) => {
   }
   displayTodos(filteredTodos);
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+  flatpickr("#date-input", {
+    dateFormat: "Y-m-d",  
+    allowInput: false,      
+    minDate: "today",      
+    disableMobile: true,    
+    position: "auto centre",
+  });
+});
+
 
 window.addEventListener("load", () => displayTodos());
 addButton.addEventListener("click", addHandler);
