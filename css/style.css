@@ -4,19 +4,38 @@
     --color-task: #f7f7f7;
     --color-success: #36d39a;
     --color-warning: #fbbe23;
-    --color-error: #f87171;
+    --color-error: #ED2E2E;
+}
+
+@font-face {
+    font-family: volta-reg;
+    src: url("../fonts/VolteRounded-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: volta-med;
+    src: url("../fonts/VolteRounded-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: volta-sem;
+    src: url("../fonts/VolteRounded-Semibold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: volta-bold;
+    src: url("../fonts/VolteRounded-Bold.ttf") format("truetype");
 }
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: volta-med
 }
-
-body {
+.main-container {
     max-width: 1000px;
-    margin: auto;
+    margin: 0 auto;
 }
 
 .container {
@@ -31,8 +50,10 @@ body {
 }
 
 h2 {
+    font-family: volta-bold;
     font-size: 1.5rem;
     margin-bottom: 30px;
+    color: #0C3A52;
 }
 
 .input-section {
@@ -45,10 +66,10 @@ h2 {
 .input-section input {
     margin-right: 10px;
     width: 100%;
-    border: var(--color-primary) 1px solid;
+    border: #1D91CC 1px solid;
     border-radius: 5px;
     padding: 10px;
-    color: gray;
+    color: #404040;
 }
 
 .input-section input:focus {
@@ -58,12 +79,12 @@ h2 {
 
 
 button {
-    background-color: var(--color-primary);
     border: none;
     cursor: pointer;
     padding: 10px 15px;
     border-radius: 8px;
     white-space: nowrap;
+    border-radius: 20px;
 }
 
 button:hover {
@@ -76,14 +97,53 @@ button:hover {
     justify-content: space-between;
 }
 
+#add-button {
+    background-color: #1D91CC;
+    color: white;
+
+}
+
 #delete-all-button {
-    background-color: var(--color-error);
+    background-color: #FFE5E5;
+    color: #D3180C;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.filter-todos {
+    background-color: #D2E9F5;
+    color: #1774A3;
+}
+
+.alert {
+    width: 100%;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    margin-top: 5px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 @media (max-width: 768px) {
+    .alert {
+        width: 94%;
+        margin: 0 auto;
+        text-align: center;
+        border-radius: 4px;
+        padding-top: 15px;
+        padding-bottom: 30px;
+        margin-top: 5px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        z-index: -1;
+    }
+
     .container {
-        margin: 40px 15px 10px;
+        margin: 20px 15px 10px;
         padding: 16px;
+        margin-bottom: 40px;
     }
 
     h2 {
@@ -140,8 +200,17 @@ td {
 }
 
 th {
-    background-color: var(--color-background);
+    background-color: #ddf0fb;
     font-weight: bold;
+    color: #0C3A52;
+}
+
+th:last-child {
+    border-top-right-radius: 15px;
+}
+
+th:first-child {
+    border-top-left-radius: 15px;
 }
 
 td button {
@@ -153,15 +222,18 @@ td button {
 }
 
 td button:nth-child(1) {
-    background-color: var(--color-warning);
+    background-color: #fcf0c9;
+    color: #A9791c;
 }
 
 td button:nth-child(2) {
-    background-color: var(--color-success);
+    background-color: #DEFFCF;
+    color: #187e54;
 }
 
 td button:nth-child(3) {
-    background-color: var(--color-error);
+    background-color: #FFE5E5;
+    color: #D3180C;
 }
 
 
@@ -182,17 +254,17 @@ td button:nth-child(3) {
 
     tr {
         margin-bottom: 15px;
-        border: 1px solid #dadada;
+        border: 1px solid #BBDEF0;
         border-radius: 18px;
         padding: 10px;
-        background-color: var(--color-task);
+        background-color: #f1faff;
     }
 
     td {
         text-align: right;
         padding-left: 50%;
         position: relative;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #c0dff0;
     }
 
     td::before {
@@ -203,6 +275,7 @@ td button:nth-child(3) {
         padding-right: 10px;
         text-align: left;
         font-weight: bold;
+        color: #0C3A52;
     }
 
     td:last-child {
@@ -237,24 +310,18 @@ td button:nth-child(3) {
     align-items: center;
 }
 
-.alert {
-    width: 100%;
-    text-align: center;
-    border-radius: 4px;
-    padding: 5px;
-    margin-top: 5px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-
 .alert-success {
-    background-color: var(--color-success);
+    background-color: #DEFFCF;
+    color: #187e54;
 }
 
 .alert-error {
-    background-color: var(--color-error);
+    background-color: #FFE5E5;
+    color: #D3180C;
 }
 
 #edit-button {
     display: none;
+    background-color: #f9eabc;
+    color: #A9791c;
 }
