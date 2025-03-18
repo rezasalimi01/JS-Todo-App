@@ -2,6 +2,9 @@
 
 This is a simple and responsive Todo App built with HTML, CSS, and JavaScript. It allows users to add, edit, delete, and filter tasks. The app uses **localStorage** to save todos persistently in the browser.
 
+## 🌍 Live Preview
+Check out the live version of the app here: [Todo App](https://todoapp-rezasalimi.vercel.app/)
+
 ## ✨ Features
 - Add new todos with a task description and an optional due date.
 - Edit existing todos.
