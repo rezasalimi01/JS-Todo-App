@@ -20,14 +20,13 @@ body {
 }
 
 .container {
-    width: 100%;
-    margin: 40px auto 10px;
+    margin: 40px 10px 10px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.3);
-    border-radius: 10px;
+    border-radius: 18px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -64,6 +63,7 @@ button {
     cursor: pointer;
     padding: 10px 15px;
     border-radius: 8px;
+    white-space: nowrap;
 }
 
 button:hover {
@@ -80,50 +80,154 @@ button:hover {
     background-color: var(--color-error);
 }
 
+@media (max-width: 768px) {
+    .container {
+        margin: 40px 15px 10px;
+        padding: 16px;
+    }
 
-.table {
+    h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    .input-section {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+
+    .input-section input {
+        margin-right: 0;
+    }
+
+    .input-section button {
+        width: 100%;
+    }
+
+    .todos-operator {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .todos-operator>div {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .todos-operator button {
+        width: 100%;
+    }
+}
+
+
+.table-container {
     width: 100%;
+    overflow-x: auto;
 }
 
-thead {
-    background-color: var(--color-background);
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-thead th {
-    padding: 10px;
-}
-
-thead th:first-child {
-    border-top-left-radius: 10px;
-}
-
-thead th:last-child {
-    border-top-right-radius: 10px;
-}
-
-tbody td {
-    background-color: var(--color-task);
-    padding: 5px 10px;
+th,
+td {
+    padding: 12px;
     text-align: center;
-    width: 25%;
+    border-bottom: 1px solid #dadada;
 }
 
-tbody td button {
-    padding: 4px 8px;
-    margin: 2px 5px;
+th {
+    background-color: var(--color-background);
+    font-weight: bold;
 }
 
-tbody td button:nth-child(1) {
+td button {
+    padding: 6px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+td button:nth-child(1) {
     background-color: var(--color-warning);
 }
 
-tbody td button:nth-child(2) {
+td button:nth-child(2) {
     background-color: var(--color-success);
-    width: 48px;
 }
 
-tbody td button:nth-child(3) {
+td button:nth-child(3) {
     background-color: var(--color-error);
+}
+
+
+@media (max-width: 768px) {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #dadada;
+        border-radius: 18px;
+        padding: 10px;
+        background-color: var(--color-task);
+    }
+
+    td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+
+
+    td[data-label="Actions"] {
+        display: flex;
+        gap: 5px;
+        justify-content: flex-end;
+        padding-left: 10px;
+    }
+
+    td[data-label="Actions"] button {
+        flex: 0;
+        padding: 6px 8px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    tbody {
+        margin: 12px;
+        margin-top: 0;
+    }
 }
 
 #alert-message {

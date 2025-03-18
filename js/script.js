@@ -34,27 +34,50 @@ const showAlert = (message, type) => {
 const displayTodos = (data) => {
   const todoList = data ? data : todos;
   todosBody.innerHTML = "";
+
   if (!todoList.length) {
-    todosBody.innerHTML = "<tr><td colspan='4'>No task found ❗</td></tr>";
+    todosBody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 20px;">No task found ❗</td></tr>`;
     return;
   }
 
   todoList.forEach((todo) => {
-    todosBody.innerHTML += `
-        <tr>
-            <td>${todo.task}</td>
-            <td>📅 ${todo.date ? todo.date : "No date"}</td>
-            <td>${todo.completed ? "Completed ✅" : "Pending ⏳"}</td>
-            <td>
-                <button onclick="editHandler('${todo.id}')">Edit</button>
-                <button onclick="toggleHandler('${todo.id}')">
-                    ${todo.completed ? "Undo" : "Do"}
-                </button>
-                <button onclick="deleteHandler('${todo.id}')">Delete</button>
-            </td>
+    const row = document.createElement("tr");
 
-        </tr>
-    `;
+    const taskCell = document.createElement("td");
+    taskCell.textContent = todo.task;
+    taskCell.setAttribute("data-label", "Task");
+    row.appendChild(taskCell);
+
+    const dateCell = document.createElement("td");
+    dateCell.textContent = `📅 ${todo.date ? todo.date : "No date"}`;
+    dateCell.setAttribute("data-label", "Date");
+    row.appendChild(dateCell);
+
+    const statusCell = document.createElement("td");
+    statusCell.textContent = todo.completed ? "Completed ✅" : "Pending ⏳";
+    statusCell.setAttribute("data-label", "Status");
+    row.appendChild(statusCell);
+
+    const actionsCell = document.createElement("td");
+    actionsCell.setAttribute("data-label", "Actions");
+
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.onclick = () => editHandler(todo.id);
+    actionsCell.appendChild(editButton);
+
+    const toggleButton = document.createElement("button");
+    toggleButton.textContent = todo.completed ? "Undo" : "Do";
+    toggleButton.onclick = () => toggleHandler(todo.id);
+    actionsCell.appendChild(toggleButton);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = () => deleteHandler(todo.id);
+    actionsCell.appendChild(deleteButton);
+
+    row.appendChild(actionsCell);
+    todosBody.appendChild(row);
   });
 };
 
@@ -147,7 +170,7 @@ const filterHandler = (event) => {
       filteredTodos = todos;
       break;
   }
-  displayTodos(filteredTodos)
+  displayTodos(filteredTodos);
 };
 
 window.addEventListener("load", () => displayTodos());
