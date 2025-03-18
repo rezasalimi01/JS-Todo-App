@@ -39,9 +39,6 @@ This is a simple and responsive Todo App built with HTML, CSS, and JavaScript. I
 - Implement a category or tag system for better organization.
 - Integrate a backend to sync todos across devices.
 
-## 📄 License
-This project is licensed under the MIT License.
-
 ---
 If you have any questions or feedback, feel free to reach out! 💬
 
